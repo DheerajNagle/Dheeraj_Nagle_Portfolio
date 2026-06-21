@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dheeraj Nagle | Premium Design & Development Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Glow Blobs -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+
+    <!-- Admin Status Banner (Sticky to top when logged in) -->
+    <div id="admin-banner" class="admin-banner hidden">
+        <div class="admin-banner-content">
+            <span class="admin-badge"><i class="fa-solid fa-user-shield"></i> Admin Mode</span>
+            <div class="admin-banner-controls">
+                <button id="btn-toggle-edit" class="btn btn-sm btn-outline-gold"><i class="fa-solid fa-pen-to-square"></i> Enter Edit Mode</button>
+                <button id="btn-reset-data" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-arrows-rotate"></i> Reset Defaults</button>
+                <button id="btn-export-data" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-file-export"></i> Export JSON</button>
+                <button id="btn-logout" class="btn btn-sm btn-danger"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Sticky Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <div class="logo-dot">
+                    <img id="nav-logo-img" src="assets/dheeraj_photo.jpg" alt="Dheeraj Nagle" onerror="this.src='https://placehold.co/40'">
+                </div>
+                <span>PortFoliyo</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#hero" class="active">HOME</a>
+                <a href="#about">ABOUT</a>
+                <a href="#experience">EXPERIENCE</a>
+                <a href="#projects">PROJECTS</a>
+                <a href="#contact">CONTACT</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="#contact" class="btn btn-outline">Get in touch</a>
+                <button class="mobile-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer">
+        <nav class="mobile-drawer-links">
+            <a href="#hero" class="mobile-link">HOME</a>
+            <a href="#about" class="mobile-link">ABOUT</a>
+            <a href="#experience" class="mobile-link">EXPERIENCE</a>
+            <a href="#projects" class="mobile-link">PROJECTS</a>
+            <a href="#contact" class="mobile-link">CONTACT</a>
+            <a href="#contact" class="btn btn-gold mobile-btn">Get in touch</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="section-container">
+                <div class="hero-tags-wrapper">
+                    <div class="hero-tags" id="js-hero-tags">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="first-name js-profile-firstname">DHEERAJ</span>
+                    <span class="last-name js-profile-lastname">NAGLE</span>
+                </h1>
+
+                <div class="hero-grid">
+                    <div class="hero-img-col">
+                        <div class="hero-img-container editable-image-wrapper" data-field="profileImage">
+                            <img id="hero-profile-img" class="js-profile-image" src="assets/dheeraj_photo.jpg" alt="Dheeraj Nagle">
+                            <div class="edit-image-overlay hidden">
+                                <label for="input-hero-image"><i class="fa-solid fa-camera"></i> Change Photo</label>
+                                <input type="file" id="input-hero-image" accept="image/*" class="image-uploader">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-desc-col">
+                        <div class="editable-text-wrapper" data-field="heroWelcome">
+                            <p class="hero-desc js-hero-welcome">
+                                Welcome to my portfolio! I'm Dheeraj Nagle, a passionate UI/UX designer and web developer. I craft visually stunning, functional websites that deliver exceptional user experiences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="about-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                    <h2 class="section-title">About Me</h2>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-info-col">
+                        <h3 class="about-heading js-about-title editable-text" data-field="aboutTitle">Passionate & Creative Full-Stack Designer</h3>
+                        <div class="editable-text-wrapper" data-field="aboutBio">
+                            <p class="about-text js-about-bio">
+                                I'm Dheeraj Nagle, a designer and developer passionate about crafting intuitive, user-centered experiences. I love turning complex ideas into seamless interfaces.
+                            </p>
+                        </div>
+                        <div class="about-actions">
+                            <a href="#" id="btn-download-resume" class="btn btn-gold">
+                                Download Resume <i class="fa-solid fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="about-card-col">
+                        <!-- Profile Card -->
+                        <div class="profile-card">
+                            <div class="profile-card-image editable-image-wrapper" data-field="cardImage">
+                                <img id="about-card-img" class="js-card-image" src="assets/dheeraj_photo.jpg" alt="Dheeraj Nagle">
+                                <div class="edit-image-overlay hidden">
+                                    <label for="input-card-image"><i class="fa-solid fa-camera"></i> Change Photo</label>
+                                    <input type="file" id="input-card-image" accept="image/*" class="image-uploader">
+                                </div>
+                            </div>
+                            <div class="profile-card-info">
+                                <h4 class="profile-card-name js-profile-fullname">Dheeraj Nagle</h4>
+                                <p class="profile-card-title js-profile-role editable-text" data-field="profileRole">Creative UI/UX Designer & Web Developer</p>
+                                
+                                <div class="profile-card-socials">
+                                    <a href="#" class="social-link js-social-fb" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#" class="social-link js-social-ig" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" class="social-link js-social-in" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                    <a href="#" class="social-link js-social-x" target="_blank" aria-label="Twitter X"><i class="fa-brands fa-x-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education & Contact Section -->
+        <section id="experience" class="experience-section">
+            <div class="section-container">
+                <div class="exp-contact-grid">
+                    <!-- Left: Experience & Education Timeline -->
+                    <div class="timeline-column">
+                        <div class="timeline-group">
+                            <div class="section-header justify-between">
+                                <div class="flex-align-center">
+                                    <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                                    <h2 class="section-title">Experience</h2>
+                                </div>
+                                <button id="btn-add-experience" class="btn btn-sm btn-outline-gold hidden admin-only-inline"><i class="fa-solid fa-plus"></i> Add Entry</button>
+                            </div>
+                            
+                            <div class="timeline-list" id="js-experience-list">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <div class="timeline-group mt-40">
+                            <div class="section-header justify-between">
+                                <div class="flex-align-center">
+                                    <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                                    <h2 class="section-title">Education</h2>
+                                </div>
+                                <button id="btn-add-education" class="btn btn-sm btn-outline-gold hidden admin-only-inline"><i class="fa-solid fa-plus"></i> Add Entry</button>
+                            </div>
+
+                            <div class="timeline-list" id="js-education-list">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Contact Detail Table -->
+                    <div class="contact-details-column">
+                        <div class="section-header">
+                            <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                            <h2 class="section-title">Contact Details</h2>
+                        </div>
+                        
+                        <div class="contact-table-card">
+                            <table class="contact-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Phone</td>
+                                        <td class="js-contact-phone editable-text" data-field="contactPhone">+91 98765 43210</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td class="js-contact-email editable-text" data-field="contactEmail">dheeraj.nagle@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Website</td>
+                                        <td class="js-contact-website editable-text" data-field="contactWebsite">www.dheerajnagle.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="js-contact-address editable-text" data-field="contactAddress">Madhya Pradesh, India</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Start Project Call To Action inside layout -->
+                        <div class="start-project-card">
+                            <div class="stars-icon"><i class="fa-solid fa-star-half-stroke"></i></div>
+                            <h3 class="start-project-title">Start a Project Now</h3>
+                            <p class="start-project-text">Let's work together to design and build something amazing for your business.</p>
+                            <a href="#contact" class="btn btn-gold start-project-btn">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="section-container">
+                <div class="section-header justify-between">
+                    <div class="flex-align-center">
+                        <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                        <h2 class="section-title">Recent Projects</h2>
+                    </div>
+                    <div class="flex-align-center project-header-actions">
+                        <button id="btn-add-project" class="btn btn-sm btn-outline-gold hidden admin-only-inline mr-15"><i class="fa-solid fa-plus"></i> Add Project</button>
+                        <a href="#projects" class="explore-work-link">Explore more Work <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <div class="projects-grid" id="js-projects-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="section-container">
+                <div class="testimonials-slider-wrapper">
+                    <div class="testimonials-track" id="js-testimonials-track">
+                        <!-- Populated by JS -->
+                    </div>
+                    
+                    <!-- Slider Nav Dots -->
+                    <div class="testimonials-dots" id="js-testimonials-dots">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section / Form -->
+        <section id="contact" class="contact-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                    <h2 class="section-title">Let's Collaborate</h2>
+                </div>
+
+                <div class="contact-form-card">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Full Name</label>
+                                <input type="text" id="contact-name" name="name" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email Address</label>
+                                <input type="email" id="contact-email" name="email" placeholder="johndoe@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Your Message</label>
+                            <textarea id="contact-message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-block">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="copyright">
+                &copy; <span id="current-year">2026</span> PortFoliyo. Created by <span class="js-profile-fullname">Dheeraj Nagle</span>. All rights reserved.
+            </p>
+            <div class="footer-actions">
+                <a href="#hero" class="back-to-top">Back to top <i class="fa-solid fa-arrow-up"></i></a>
+                <!-- Admin Lock Icon Button -->
+                <button id="btn-admin-login-trigger" class="admin-login-trigger" title="Admin Login" aria-label="Admin Login">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="modal-overlay hidden">
+        <div class="modal-container text-center">
+            <button class="modal-close" id="btn-close-login"><i class="fa-solid fa-xmark"></i></button>
+            <div class="login-header">
+                <div class="lock-avatar"><i class="fa-solid fa-lock-open"></i></div>
+                <h3>Admin Console</h3>
+                <p>Log in to customize this portfolio profile</p>
+            </div>
+            <form id="admin-login-form" class="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" placeholder="Enter username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter password" required autocomplete="current-password">
+                </div>
+                <div id="login-error-msg" class="login-error hidden">Invalid credentials. Please try again.</div>
+                <button type="submit" class="btn btn-gold btn-block">Authenticate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Entry Edit Modal (for Experiences & Education) -->
+    <div id="entry-edit-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <button class="modal-close" id="btn-close-entry-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="entry-modal-title">Edit Entry</h3>
+            <form id="entry-edit-form" class="entry-edit-form">
+                <input type="hidden" id="entry-edit-index">
+                <input type="hidden" id="entry-edit-type"> <!-- 'experience' or 'education' -->
+                
+                <div class="form-group">
+                    <label for="entry-title-label" id="entry-title-label">Job Title / Degree</label>
+                    <input type="text" id="entry-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="entry-sub-label" id="entry-sub-label">Company / Institution</label>
+                    <input type="text" id="entry-sub" required>
+                </div>
+                <div class="form-group">
+                    <label for="entry-date">Date Period (e.g. 2023 - Present)</label>
+                    <input type="text" id="entry-date" placeholder="2023 - Present" required>
+                </div>
+                <div class="form-group" id="entry-desc-group">
+                    <label for="entry-desc">Description</label>
+                    <textarea id="entry-desc" rows="4" placeholder="Responsibilities, coursework, achievements..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-gold btn-block">Save Entry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Project Edit Modal -->
+    <div id="project-edit-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <button class="modal-close" id="btn-close-project-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="project-modal-title">Edit Project</h3>
+            <form id="project-edit-form" class="project-edit-form">
+                <input type="hidden" id="project-edit-index">
+                
+                <div class="form-group">
+                    <label for="project-title">Project Name</label>
+                    <input type="text" id="project-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-category">Category / Tag</label>
+                    <input type="text" id="project-category" placeholder="UI/UX Design, Web Design, Development" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-image-file">Project Image Mockup</label>
+                    <div class="project-image-selector-wrapper">
+                        <img id="project-edit-preview" class="project-edit-preview" src="https://placehold.co/400x250" alt="Preview">
+                        <input type="file" id="project-image-file" accept="image/*" class="project-image-file-input">
+                        <label for="project-image-file" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-image"></i> Select Image</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="project-url">Project Link / Action</label>
+                    <input type="text" id="project-url" placeholder="#" required>
+                </div>
+                
+                <button type="submit" class="btn btn-gold btn-block">Save Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Form Success Popup -->
+    <div id="form-success-popup" class="toast-popup hidden">
+        <div class="toast-content">
+            <div class="toast-icon success"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="toast-text">
+                <h4>Message Sent!</h4>
+                <p>Thanks for getting in touch. I will respond shortly.</p>
+            </div>
+            <button class="toast-close" onclick="this.parentElement.parentElement.classList.add('hidden')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- Admin Notification Toast -->
+    <div id="admin-toast" class="toast-popup hidden">
+        <div class="toast-content">
+            <div id="admin-toast-icon" class="toast-icon info"><i class="fa-solid fa-info-circle"></i></div>
+            <div class="toast-text">
+                <h4 id="admin-toast-title">Success</h4>
+                <p id="admin-toast-desc">Changes saved successfully.</p>
+            </div>
+            <button class="toast-close" onclick="this.parentElement.parentElement.classList.add('hidden')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
