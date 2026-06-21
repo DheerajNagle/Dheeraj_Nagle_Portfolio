@@ -22,7 +22,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             instagram: "https://instagram.com",
             linkedin: "https://www.linkedin.com/in/dheeraj-nagle-8a37a6197/",
             twitter: "https://twitter.com",
-            github: "https://github.com"
+            github: "https://github.com/DheerajNagle"
         }
     },
     tags: [
@@ -140,8 +140,22 @@ function initPortfolioState() {
     } else {
         try {
             portfolioData = JSON.parse(savedData);
+            let updated = false;
             if (!portfolioData.skills) {
                 portfolioData.skills = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.skills));
+                updated = true;
+            }
+            if (portfolioData.profile && portfolioData.profile.socials) {
+                if (!portfolioData.profile.socials.github || portfolioData.profile.socials.github === "https://github.com") {
+                    portfolioData.profile.socials.github = DEFAULT_PORTFOLIO_DATA.profile.socials.github;
+                    updated = true;
+                }
+                if (portfolioData.profile.socials.linkedin === "https://linkedin.com") {
+                    portfolioData.profile.socials.linkedin = DEFAULT_PORTFOLIO_DATA.profile.socials.linkedin;
+                    updated = true;
+                }
+            }
+            if (updated) {
                 localStorage.setItem("portfolio_state", JSON.stringify(portfolioData));
             }
         } catch (e) {
