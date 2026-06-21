@@ -461,6 +461,65 @@ function deleteProjectCard(index) {
 }
 
 // ==========================================================================
+// ADD / EDIT / DELETE SKILL DETAILS
+// ==========================================================================
+
+function openSkillModal(index = -1) {
+    const modal = document.getElementById("skill-edit-modal");
+    const form = document.getElementById("skill-edit-form");
+    if (!modal || !form) return;
+
+    form.reset();
+    document.getElementById("skill-edit-index").value = index;
+
+    if (index === -1) {
+        document.getElementById("skill-modal-title").textContent = "Add Skill Details";
+    } else {
+        document.getElementById("skill-modal-title").textContent = "Edit Skill Details";
+        const skill = portfolioData.skills[index];
+        document.getElementById("skill-name-input").value = skill.name;
+        document.getElementById("skill-category-input").value = skill.category || "";
+        document.getElementById("skill-level-input").value = skill.level;
+        document.getElementById("skill-icon-input").value = skill.icon || "";
+    }
+
+    modal.classList.remove("hidden");
+}
+
+function handleSkillFormSubmit(e) {
+    e.preventDefault();
+    const index = parseInt(document.getElementById("skill-edit-index").value);
+    const name = document.getElementById("skill-name-input").value.trim();
+    const category = document.getElementById("skill-category-input").value.trim();
+    const level = parseInt(document.getElementById("skill-level-input").value);
+    const icon = document.getElementById("skill-icon-input").value.trim();
+
+    const skillObj = { name, category, level, icon };
+
+    if (!portfolioData.skills) portfolioData.skills = [];
+
+    if (index === -1) {
+        portfolioData.skills.push(skillObj);
+        showAdminToast("Skill Created", "Successfully added new skill details.", "success");
+    } else {
+        portfolioData.skills[index] = skillObj;
+        showAdminToast("Skill Saved", "Skill configuration updated.", "success");
+    }
+
+    commitStateToLocalStorage();
+    document.getElementById("skill-edit-modal").classList.add("hidden");
+    renderPortfolio();
+}
+
+function deleteSkillEntry(index) {
+    if (!confirm("Are you sure you want to delete this skill entry?")) return;
+    portfolioData.skills.splice(index, 1);
+    commitStateToLocalStorage();
+    renderPortfolio();
+    showAdminToast("Skill Removed", "Skill card has been deleted.", "success");
+}
+
+// ==========================================================================
 // RESET & EXPORT ACTIONS
 // ==========================================================================
 
@@ -643,6 +702,21 @@ document.addEventListener("DOMContentLoaded", () => {
             deleteProjectCard(index);
             return;
         }
+
+        // Skill Delegations
+        const editSkillBtn = e.target.closest(".js-btn-edit-skill");
+        if (editSkillBtn) {
+            const index = parseInt(editSkillBtn.dataset.index);
+            openSkillModal(index);
+            return;
+        }
+
+        const deleteSkillBtn = e.target.closest(".js-btn-delete-skill");
+        if (deleteSkillBtn) {
+            const index = parseInt(deleteSkillBtn.dataset.index);
+            deleteSkillEntry(index);
+            return;
+        }
     });
 
     // Project Dialog Modals Close & Form Actions
@@ -661,6 +735,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectEditForm = document.getElementById("project-edit-form");
     if (projectEditForm) {
         projectEditForm.addEventListener("submit", handleProjectFormSubmit);
+    }
+
+    // Skill Modal Dialog Close & Actions
+    const btnCloseSkillModal = document.getElementById("btn-close-skill-modal");
+    if (btnCloseSkillModal) {
+        btnCloseSkillModal.addEventListener("click", () => {
+            document.getElementById("skill-edit-modal").classList.add("hidden");
+        });
+    }
+
+    const btnAddSkill = document.getElementById("btn-add-skill");
+    if (btnAddSkill) {
+        btnAddSkill.addEventListener("click", () => openSkillModal(-1));
+    }
+
+    const skillEditForm = document.getElementById("skill-edit-form");
+    if (skillEditForm) {
+        skillEditForm.addEventListener("submit", handleSkillFormSubmit);
     }
 
     // Project form image file reader binding

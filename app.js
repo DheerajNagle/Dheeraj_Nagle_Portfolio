@@ -20,8 +20,9 @@ const DEFAULT_PORTFOLIO_DATA = {
         socials: {
             facebook: "https://facebook.com",
             instagram: "https://instagram.com",
-            linkedin: "https://linkedin.com",
-            twitter: "https://twitter.com"
+            linkedin: "https://www.linkedin.com/in/dheeraj-nagle-8a37a6197/",
+            twitter: "https://twitter.com",
+            github: "https://github.com"
         }
     },
     tags: [
@@ -103,6 +104,14 @@ const DEFAULT_PORTFOLIO_DATA = {
             name: "Tariq Al-Sabah",
             role: "Tech Founder"
         }
+    ],
+    skills: [
+        { name: "Figma", category: "Design", level: 90, icon: "fa-brands fa-figma" },
+        { name: "UI/UX Design", category: "Design", level: 95, icon: "fa-solid fa-pen-nib" },
+        { name: "HTML & CSS", category: "Development", level: 90, icon: "fa-brands fa-html5" },
+        { name: "JavaScript", category: "Development", level: 85, icon: "fa-brands fa-js" },
+        { name: "React & Next.js", category: "Development", level: 80, icon: "fa-brands fa-react" },
+        { name: "WordPress", category: "Development", level: 75, icon: "fa-brands fa-wordpress" }
     ]
 };
 
@@ -131,6 +140,10 @@ function initPortfolioState() {
     } else {
         try {
             portfolioData = JSON.parse(savedData);
+            if (!portfolioData.skills) {
+                portfolioData.skills = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.skills));
+                localStorage.setItem("portfolio_state", JSON.stringify(portfolioData));
+            }
         } catch (e) {
             localStorage.setItem("portfolio_state", JSON.stringify(DEFAULT_PORTFOLIO_DATA));
             portfolioData = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
@@ -160,6 +173,7 @@ function renderPortfolio() {
     document.querySelectorAll(".js-social-ig").forEach(el => el.href = p.socials.instagram || "#");
     document.querySelectorAll(".js-social-in").forEach(el => el.href = p.socials.linkedin || "#");
     document.querySelectorAll(".js-social-x").forEach(el => el.href = p.socials.twitter || "#");
+    document.querySelectorAll(".js-social-gh").forEach(el => el.href = p.socials.github || "#");
 
     // Set Images
     const heroImg = document.getElementById("hero-profile-img");
@@ -275,6 +289,43 @@ function renderPortfolio() {
             `;
             projGrid.appendChild(card);
         });
+    }
+
+    // Render Skills Grid
+    const skillsGrid = document.getElementById("js-skills-list");
+    if (skillsGrid) {
+        skillsGrid.innerHTML = "";
+        if (portfolioData.skills) {
+            portfolioData.skills.forEach((skill, index) => {
+                const card = document.createElement("div");
+                card.className = "skill-card relative";
+                card.dataset.index = index;
+
+                const isAdmin = document.body.classList.contains("admin-logged-in");
+                const adminButtonsHtml = isAdmin && document.body.classList.contains("edit-mode-active") ? `
+                    <div class="edit-badge js-btn-edit-skill" data-index="${index}"><i class="fa-solid fa-pen"></i> Edit</div>
+                    <div class="delete-badge js-btn-delete-skill" data-index="${index}"><i class="fa-solid fa-trash"></i> Delete</div>
+                ` : "";
+
+                card.innerHTML = `
+                    ${adminButtonsHtml}
+                    <div class="skill-icon-wrapper">
+                        <i class="${skill.icon || 'fa-solid fa-code'}"></i>
+                    </div>
+                    <div class="skill-info">
+                        <span class="skill-category">${skill.category || 'General'}</span>
+                        <h3 class="skill-name">${skill.name}</h3>
+                        <div class="skill-progress-wrapper">
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" style="width: ${skill.level}%"></div>
+                            </div>
+                            <span class="skill-percentage">${skill.level}%</span>
+                        </div>
+                    </div>
+                `;
+                skillsGrid.appendChild(card);
+            });
+        }
     }
 
     // Render Testimonials Carousel
@@ -475,6 +526,9 @@ ${portfolioData.education.map(edu => `
   ${edu.desc || ''}
 `).join('')}
 
+SKILLS:
+${portfolioData.skills ? portfolioData.skills.map(s => `- ${s.name} (${s.category}) | Proficiency: ${s.level}%`).join('\n') : ''}
+
 ========================================
 Generated from Portfolio Website (2026)
             `;
@@ -514,7 +568,7 @@ function highlightActiveNavLink() {
 
 // Fade in elements when entering view screen
 function initScrollAnimations() {
-    const animateElements = document.querySelectorAll(".timeline-item, .project-card, .contact-form-card, .profile-card, .about-info-col, .hero-grid");
+    const animateElements = document.querySelectorAll(".timeline-item, .project-card, .skill-card, .contact-form-card, .profile-card, .about-info-col, .hero-grid");
     
     const observerOptions = {
         threshold: 0.15,

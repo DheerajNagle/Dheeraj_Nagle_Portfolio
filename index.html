@@ -44,6 +44,7 @@
             <nav class="nav-links">
                 <a href="#hero" class="active">HOME</a>
                 <a href="#about">ABOUT</a>
+                <a href="#skills">SKILLS</a>
                 <a href="#experience">EXPERIENCE</a>
                 <a href="#projects">PROJECTS</a>
                 <a href="#contact">CONTACT</a>
@@ -64,6 +65,7 @@
         <nav class="mobile-drawer-links">
             <a href="#hero" class="mobile-link">HOME</a>
             <a href="#about" class="mobile-link">ABOUT</a>
+            <a href="#skills" class="mobile-link">SKILLS</a>
             <a href="#experience" class="mobile-link">EXPERIENCE</a>
             <a href="#projects" class="mobile-link">PROJECTS</a>
             <a href="#contact" class="mobile-link">CONTACT</a>
@@ -145,14 +147,31 @@
                                 <p class="profile-card-title js-profile-role editable-text" data-field="profileRole">Creative UI/UX Designer & Web Developer</p>
                                 
                                 <div class="profile-card-socials">
-                                    <a href="#" class="social-link js-social-fb" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#" class="social-link js-social-ig" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" class="social-link js-social-gh" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                                     <a href="#" class="social-link js-social-in" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                    <a href="#" class="social-link js-social-ig" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" class="social-link js-social-fb" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                                     <a href="#" class="social-link js-social-x" target="_blank" aria-label="Twitter X"><i class="fa-brands fa-x-twitter"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <div class="section-container">
+                <div class="section-header justify-between">
+                    <div class="flex-align-center">
+                        <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                        <h2 class="section-title">Professional Skills</h2>
+                    </div>
+                    <button id="btn-add-skill" class="btn btn-sm btn-outline-gold hidden admin-only-inline"><i class="fa-solid fa-plus"></i> Add Skill</button>
+                </div>
+                <div class="skills-grid" id="js-skills-list">
+                    <!-- Populated by JS -->
                 </div>
             </div>
         </section>
@@ -402,6 +421,36 @@
                 </div>
                 
                 <button type="submit" class="btn btn-gold btn-block">Save Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Skill Edit Modal -->
+    <div id="skill-edit-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <button class="modal-close" id="btn-close-skill-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="skill-modal-title">Edit Skill</h3>
+            <form id="skill-edit-form" class="skill-edit-form">
+                <input type="hidden" id="skill-edit-index">
+                
+                <div class="form-group">
+                    <label for="skill-name-input">Skill Name</label>
+                    <input type="text" id="skill-name-input" placeholder="e.g. JavaScript" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill-category-input">Category</label>
+                    <input type="text" id="skill-category-input" placeholder="e.g. Development, Design, Tools" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill-level-input">Proficiency Level (%)</label>
+                    <input type="number" id="skill-level-input" min="0" max="100" placeholder="e.g. 85" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill-icon-input">FontAwesome Icon Class</label>
+                    <input type="text" id="skill-icon-input" placeholder="e.g. fa-brands fa-js" required>
+                </div>
+                
+                <button type="submit" class="btn btn-gold btn-block">Save Skill</button>
             </form>
         </div>
     </div>
