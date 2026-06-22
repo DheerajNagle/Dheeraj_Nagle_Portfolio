@@ -106,12 +106,32 @@ const DEFAULT_PORTFOLIO_DATA = {
         }
     ],
     skills: [
-        { name: "Figma", category: "Design", level: 90, icon: "fa-brands fa-figma" },
-        { name: "UI/UX Design", category: "Design", level: 95, icon: "fa-solid fa-pen-nib" },
-        { name: "HTML & CSS", category: "Development", level: 90, icon: "fa-brands fa-html5" },
-        { name: "JavaScript", category: "Development", level: 85, icon: "fa-brands fa-js" },
-        { name: "React & Next.js", category: "Development", level: 80, icon: "fa-brands fa-react" },
-        { name: "WordPress", category: "Development", level: 75, icon: "fa-brands fa-wordpress" }
+        // Frontend
+        { name: "React.js", category: "Frontend", level: 90, icon: "fa-brands fa-react" },
+        { name: "Next.js", category: "Frontend", level: 80, icon: "fa-solid fa-code" },
+        { name: "React Native", category: "Frontend", level: 85, icon: "fa-solid fa-mobile-screen-button" },
+        { name: "JavaScript", category: "Frontend", level: 90, icon: "fa-brands fa-js" },
+        { name: "TypeScript", category: "Frontend", level: 80, icon: "fa-solid fa-code" },
+        { name: "HTML5 & CSS3", category: "Frontend", level: 95, icon: "fa-brands fa-html5" },
+        { name: "Tailwind CSS", category: "Frontend", level: 90, icon: "fa-solid fa-wind" },
+        // Backend
+        { name: "Node.js", category: "Backend", level: 85, icon: "fa-brands fa-node-js" },
+        { name: "Express.js", category: "Backend", level: 80, icon: "fa-solid fa-server" },
+        { name: "REST APIs", category: "Backend", level: 90, icon: "fa-solid fa-gears" },
+        { name: "Authentication & Authorization", category: "Backend", level: 80, icon: "fa-solid fa-shield-halved" },
+        // Database
+        { name: "PostgreSQL", category: "Database", level: 80, icon: "fa-solid fa-database" },
+        { name: "MongoDB", category: "Database", level: 80, icon: "fa-solid fa-leaf" },
+        { name: "MySQL", category: "Database", level: 75, icon: "fa-solid fa-database" },
+        // AI & Modern Development
+        { name: "AI Agents", category: "AI & Modern Development", level: 85, icon: "fa-solid fa-robot" },
+        { name: "OpenAI API", category: "AI & Modern Development", level: 85, icon: "fa-solid fa-brain" },
+        { name: "Prompt Engineering", category: "AI & Modern Development", level: 90, icon: "fa-solid fa-wand-magic-sparkles" },
+        { name: "NLP", category: "AI & Modern Development", level: 75, icon: "fa-solid fa-language" },
+        // Tools & Cloud
+        { name: "Git & GitHub", category: "Tools & Cloud", level: 90, icon: "fa-brands fa-github" },
+        { name: "AWS", category: "Tools & Cloud", level: 70, icon: "fa-brands fa-aws" },
+        { name: "Postman", category: "Tools & Cloud", level: 85, icon: "fa-solid fa-paper-plane" }
     ]
 };
 
@@ -141,7 +161,9 @@ function initPortfolioState() {
         try {
             portfolioData = JSON.parse(savedData);
             let updated = false;
-            if (!portfolioData.skills) {
+            const hasReact = portfolioData.skills && portfolioData.skills.some(s => s.name === "React.js");
+            const hasFigma = portfolioData.skills && portfolioData.skills.some(s => s.name === "Figma");
+            if (!portfolioData.skills || !hasReact || hasFigma || portfolioData.skills.length < 15) {
                 portfolioData.skills = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.skills));
                 updated = true;
             }
