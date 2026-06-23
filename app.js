@@ -8,7 +8,7 @@ const DEFAULT_PORTFOLIO_DATA = {
         firstname: "DHEERAJ",
         lastname: "NAGLE",
         role: "Creative UI/UX Designer & Web Developer",
-        heroWelcome: "Welcome to my portfolio! I'm Dheeraj Nagle, a passionate UI/UX designer and web developer. I craft visually stunning, functional websites that deliver exceptional user experiences.",
+        heroWelcome: "I'm Dheeraj Nagle, a developer who enjoys turning ideas into real products. Over the past few years, I've worked on web applications, mobile apps, and learning platforms using React, React Native, Node.js, and Python. I love building intuitive user experiences and writing clean, maintainable code. I'm currently open to freelance projects and full-time opportunities where I can contribute, learn, and grow as a developer.",
         aboutTitle: "Passionate & Creative Full-Stack Designer",
         aboutBio: "I'm Dheeraj Nagle, a designer and developer passionate about crafting intuitive, user-centered experiences. I love turning complex ideas into seamless interfaces.",
         profileImage: "assets/dheeraj_photo.jpg",
@@ -165,6 +165,10 @@ function initPortfolioState() {
             const hasFigma = portfolioData.skills && portfolioData.skills.some(s => s.name === "Figma");
             if (!portfolioData.skills || !hasReact || hasFigma || portfolioData.skills.length < 15) {
                 portfolioData.skills = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.skills));
+                updated = true;
+            }
+            if (portfolioData.profile && (!portfolioData.profile.heroWelcome || portfolioData.profile.heroWelcome.includes("Welcome to my portfolio!"))) {
+                portfolioData.profile.heroWelcome = DEFAULT_PORTFOLIO_DATA.profile.heroWelcome;
                 updated = true;
             }
             if (portfolioData.profile && portfolioData.profile.socials) {
