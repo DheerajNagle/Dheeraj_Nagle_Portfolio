@@ -215,14 +215,15 @@ function initPortfolioState() {
             if (portfolioData.projects) {
                 const originalLength = portfolioData.projects.length;
                 portfolioData.projects = portfolioData.projects.filter(p => 
-                    !p.url.includes("frontend_technical_assessment") && 
-                    !p.url.includes("charli-work") &&
-                    !p.name.includes("frontend_technical_assessment") &&
-                    !p.name.includes("charli-work")
+                    p.url && p.url.toLowerCase().includes("github.com/dheerajnagle")
                 );
                 if (portfolioData.projects.length !== originalLength) {
                     updated = true;
                 }
+            }
+            if (!portfolioData.projects || portfolioData.projects.length === 0) {
+                portfolioData.projects = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.projects));
+                updated = true;
             }
             const hasPlaceholderExperience = portfolioData.experience && portfolioData.experience.some(e => e.sub.includes("At Wegems") || e.sub.includes("At LuminUI"));
             if (!portfolioData.experience || portfolioData.experience.length === 0 || hasPlaceholderExperience) {
