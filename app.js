@@ -13,9 +13,8 @@ const DEFAULT_PORTFOLIO_DATA = {
         aboutBio: "I'm Dheeraj Nagle, a Frontend & Full-Stack Developer with experience building web and mobile applications using React, React Native, Node.js, and Python. I enjoy transforming ideas into scalable, user-friendly digital products that solve real-world problems. From responsive websites to custom applications, I focus on writing clean code, delivering great user experiences, and continuously learning modern technologies.",
         profileImage: "assets/dheeraj_photo.jpg",
         cardImage: "assets/dheeraj_photo.jpg",
-        contactPhone: "+91 98765 43210",
-        contactEmail: "dheeraj.nagle@example.com",
-        contactWebsite: "www.dheerajnagle.com",
+        contactPhone: "+91 83193 00602",
+        contactEmail: "nagledheeraj94@gmail.com",
         contactAddress: "Madhya Pradesh, India",
         socials: {
             facebook: "https://facebook.com",
@@ -53,16 +52,10 @@ const DEFAULT_PORTFOLIO_DATA = {
     ],
     education: [
         {
-            title: "BSC in CSE",
-            sub: "London University",
-            date: "2023 - Present",
-            desc: "Focusing on Software Engineering, human-computer interaction, and design systems."
-        },
-        {
-            title: "Diploma in Web Design",
-            sub: "Oxford College",
-            date: "2022 - 2023",
-            desc: "Specialized in CSS frameworks, grid layouts, visual hierarchy, and typography."
+            title: "B.Tech in Computer Science & Engineering",
+            sub: "Institute of Engineering & Science, IPS Academy Indore",
+            date: "2018 - 2022",
+            desc: "Specialized in core Computer Science, engineering subjects, algorithms, data structures, and software methodologies."
         }
     ],
     projects: [
@@ -197,6 +190,14 @@ function initPortfolioState() {
                 portfolioData.profile.aboutBio = DEFAULT_PORTFOLIO_DATA.profile.aboutBio;
                 updated = true;
             }
+            if (portfolioData.profile && (portfolioData.profile.contactPhone === "+91 98765 43210" || !portfolioData.profile.contactPhone)) {
+                portfolioData.profile.contactPhone = DEFAULT_PORTFOLIO_DATA.profile.contactPhone;
+                updated = true;
+            }
+            if (portfolioData.profile && (portfolioData.profile.contactEmail === "dheeraj.nagle@example.com" || !portfolioData.profile.contactEmail)) {
+                portfolioData.profile.contactEmail = DEFAULT_PORTFOLIO_DATA.profile.contactEmail;
+                updated = true;
+            }
             if (portfolioData.profile && portfolioData.profile.socials) {
                 if (!portfolioData.profile.socials.github || portfolioData.profile.socials.github === "https://github.com") {
                     portfolioData.profile.socials.github = DEFAULT_PORTFOLIO_DATA.profile.socials.github;
@@ -207,15 +208,19 @@ function initPortfolioState() {
                     updated = true;
                 }
             }
-            const hasPlaceholderProjects = portfolioData.projects && portfolioData.projects.some(p => p.name.includes("M-Mockups") || p.name.includes("LuminUI"));
-            if (!portfolioData.projects || portfolioData.projects.length === 0 || hasPlaceholderProjects) {
+            const hasLearnify = portfolioData.projects && portfolioData.projects.some(p => p.name === "Learnify App");
+            if (!hasLearnify) {
                 portfolioData.projects = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.projects));
+                portfolioData.experience = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.experience));
                 updated = true;
             }
             if (portfolioData.projects) {
                 const originalLength = portfolioData.projects.length;
                 portfolioData.projects = portfolioData.projects.filter(p => 
-                    p.url && p.url.toLowerCase().includes("github.com/dheerajnagle")
+                    p.url && 
+                    p.url.toLowerCase().includes("github.com/dheerajnagle") &&
+                    !p.url.toLowerCase().includes("frontend_technical_assessment") &&
+                    !p.url.toLowerCase().includes("charli-work")
                 );
                 if (portfolioData.projects.length !== originalLength) {
                     updated = true;
@@ -225,9 +230,9 @@ function initPortfolioState() {
                 portfolioData.projects = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.projects));
                 updated = true;
             }
-            const hasPlaceholderExperience = portfolioData.experience && portfolioData.experience.some(e => e.sub.includes("At Wegems") || e.sub.includes("At LuminUI"));
-            if (!portfolioData.experience || portfolioData.experience.length === 0 || hasPlaceholderExperience) {
-                portfolioData.experience = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.experience));
+            const hasBTech = portfolioData.education && portfolioData.education.some(e => e.title.includes("B.Tech") || e.title.includes("BTECH"));
+            if (!portfolioData.education || portfolioData.education.length === 0 || !hasBTech) {
+                portfolioData.education = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.education));
                 updated = true;
             }
             if (updated) {
@@ -254,7 +259,6 @@ function renderPortfolio() {
     document.querySelectorAll(".js-about-bio").forEach(el => el.textContent = p.aboutBio);
     document.querySelectorAll(".js-contact-phone").forEach(el => el.textContent = p.contactPhone);
     document.querySelectorAll(".js-contact-email").forEach(el => el.textContent = p.contactEmail);
-    document.querySelectorAll(".js-contact-website").forEach(el => el.textContent = p.contactWebsite);
     document.querySelectorAll(".js-contact-address").forEach(el => el.textContent = p.contactAddress);
 
     // Set Social Links
@@ -596,7 +600,6 @@ DHEERAJ NAGLE - PORTFOLIO RESUME
 Role: ${portfolioData.profile.role}
 Email: ${portfolioData.profile.contactEmail}
 Phone: ${portfolioData.profile.contactPhone}
-Website: ${portfolioData.profile.contactWebsite}
 Address: ${portfolioData.profile.contactAddress}
 ========================================
 
