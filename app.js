@@ -17,8 +17,6 @@ const DEFAULT_PORTFOLIO_DATA = {
         contactEmail: "nagledheeraj94@gmail.com",
         contactAddress: "Madhya Pradesh, India",
         socials: {
-            facebook: "https://facebook.com",
-            instagram: "https://instagram.com",
             linkedin: "https://www.linkedin.com/in/dheeraj-nagle-8a37a6197/",
             twitter: "https://twitter.com",
             github: "https://github.com/DheerajNagle"
@@ -186,6 +184,14 @@ function initPortfolioState() {
                     portfolioData.profile.socials.linkedin = DEFAULT_PORTFOLIO_DATA.profile.socials.linkedin;
                     updated = true;
                 }
+                if (portfolioData.profile.socials.facebook) {
+                    delete portfolioData.profile.socials.facebook;
+                    updated = true;
+                }
+                if (portfolioData.profile.socials.instagram) {
+                    delete portfolioData.profile.socials.instagram;
+                    updated = true;
+                }
             }
             const hasLearnify = portfolioData.projects && portfolioData.projects.some(p => p.name === "Learnify App");
             if (!hasLearnify) {
@@ -252,8 +258,6 @@ function renderPortfolio() {
     document.querySelectorAll(".js-contact-address").forEach(el => el.textContent = p.contactAddress);
 
     // Set Social Links
-    document.querySelectorAll(".js-social-fb").forEach(el => el.href = p.socials.facebook || "#");
-    document.querySelectorAll(".js-social-ig").forEach(el => el.href = p.socials.instagram || "#");
     document.querySelectorAll(".js-social-in").forEach(el => el.href = p.socials.linkedin || "#");
     document.querySelectorAll(".js-social-x").forEach(el => el.href = p.socials.twitter || "#");
     document.querySelectorAll(".js-social-gh").forEach(el => el.href = p.socials.github || "#");
