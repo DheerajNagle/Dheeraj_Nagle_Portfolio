@@ -25,10 +25,10 @@ const DEFAULT_PORTFOLIO_DATA = {
         }
     },
     tags: [
-        "#BRANDING", 
-        "#UI/UX DESIGN", 
-        "#DEVELOPMENT", 
-        "#WEB DESIGN"
+        "#ReactNative", 
+        "#FullStackDevelopment", 
+        "#WebDevelopment", 
+        "#MobileAppDevelopment"
     ],
     experience: [
         {
@@ -214,6 +214,11 @@ function initPortfolioState() {
             const hasFakeTestimonials = portfolioData.testimonials && portfolioData.testimonials.some(t => t.name === "Sarah Jenkins" || t.name === "James Carter");
             if (!portfolioData.testimonials || hasFakeTestimonials) {
                 portfolioData.testimonials = [];
+                updated = true;
+            }
+            const hasNewTags = portfolioData.tags && portfolioData.tags.includes("#ReactNative");
+            if (!portfolioData.tags || portfolioData.tags.length === 0 || !hasNewTags) {
+                portfolioData.tags = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.tags));
                 updated = true;
             }
             if (updated) {
