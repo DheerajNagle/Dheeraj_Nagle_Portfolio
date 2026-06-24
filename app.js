@@ -90,32 +90,7 @@ const DEFAULT_PORTFOLIO_DATA = {
             url: "https://github.com/DheerajNagle/PII-Detection-software"
         }
     ],
-    testimonials: [
-        {
-            stars: 5,
-            text: "Navigating the portfolio feels natural. Everything aligned and easy to use.",
-            name: "Sarah Jenkins",
-            role: "Product Lead"
-        },
-        {
-            stars: 5,
-            text: "David captured our vision, turning it into a polished website.",
-            name: "James Carter",
-            role: "CEO at Wegems"
-        },
-        {
-            stars: 5,
-            text: "The experience feels smooth, fast, exactly how a portfolio should be.",
-            name: "Elena Rostova",
-            role: "Creative Director"
-        },
-        {
-            stars: 5,
-            text: "Portfolio navigation is extremely intuitive. Highly recommended!",
-            name: "Tariq Al-Sabah",
-            role: "Tech Founder"
-        }
-    ],
+    testimonials: [],
     skills: [
         // Frontend
         { name: "React.js", category: "Frontend", level: 90, icon: "fa-brands fa-react" },
@@ -233,6 +208,12 @@ function initPortfolioState() {
             const hasBTech = portfolioData.education && portfolioData.education.some(e => e.title.includes("B.Tech") || e.title.includes("BTECH"));
             if (!portfolioData.education || portfolioData.education.length === 0 || !hasBTech) {
                 portfolioData.education = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.education));
+                updated = true;
+            }
+            // Migrate testimonials: if they contain Sarah Jenkins or James Carter (the fake reviews), we clear them out!
+            const hasFakeTestimonials = portfolioData.testimonials && portfolioData.testimonials.some(t => t.name === "Sarah Jenkins" || t.name === "James Carter");
+            if (!portfolioData.testimonials || hasFakeTestimonials) {
+                portfolioData.testimonials = [];
                 updated = true;
             }
             if (updated) {
@@ -432,6 +413,7 @@ let currentTestimonialIndex = 0;
 function renderTestimonials() {
     const track = document.getElementById("js-testimonials-track");
     const dotsContainer = document.getElementById("js-testimonials-dots");
+    const testimonialsSection = document.getElementById("testimonials");
     if (!track || !dotsContainer) return;
 
     track.innerHTML = "";
@@ -440,9 +422,18 @@ function renderTestimonials() {
     // Clear auto-slide interval
     if (testimonialInterval) clearInterval(testimonialInterval);
 
+    const isAdmin = document.body.classList.contains("admin-logged-in");
+
     if (portfolioData.testimonials.length === 0) {
-        track.innerHTML = "<div class='testimonial-card'>No reviews added yet.</div>";
+        if (isAdmin && document.body.classList.contains("edit-mode-active")) {
+            if (testimonialsSection) testimonialsSection.classList.remove("hidden");
+            track.innerHTML = "<div class='testimonial-card'>No reviews added yet. Click 'Add Review' to create one.</div>";
+        } else {
+            if (testimonialsSection) testimonialsSection.classList.add("hidden");
+        }
         return;
+    } else {
+        if (testimonialsSection) testimonialsSection.classList.remove("hidden");
     }
 
     portfolioData.testimonials.forEach((test, index) => {
@@ -453,8 +444,15 @@ function renderTestimonials() {
         }
 
         const card = document.createElement("div");
-        card.className = "testimonial-card";
+        card.className = "testimonial-card relative";
+        
+        const adminButtonsHtml = isAdmin && document.body.classList.contains("edit-mode-active") ? `
+            <div class="edit-badge js-btn-edit-testimonial" data-index="${index}"><i class="fa-solid fa-pen"></i> Edit</div>
+            <div class="delete-badge js-btn-delete-testimonial" data-index="${index}"><i class="fa-solid fa-trash"></i> Delete</div>
+        ` : "";
+
         card.innerHTML = `
+            ${adminButtonsHtml}
             <div class="testimonial-stars">${starsHtml}</div>
             <p class="testimonial-text">${test.text}</p>
             <div class="testimonial-author">

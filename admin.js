@@ -520,6 +520,65 @@ function deleteSkillEntry(index) {
 }
 
 // ==========================================================================
+// ADD / EDIT / DELETE TESTIMONIALS
+// ==========================================================================
+
+function openTestimonialModal(index = -1) {
+    const modal = document.getElementById("testimonial-edit-modal");
+    const form = document.getElementById("testimonial-edit-form");
+    if (!modal || !form) return;
+
+    form.reset();
+    document.getElementById("testimonial-edit-index").value = index;
+
+    if (index === -1) {
+        document.getElementById("testimonial-modal-title").textContent = "Add Client Review";
+    } else {
+        document.getElementById("testimonial-modal-title").textContent = "Edit Client Review";
+        const test = portfolioData.testimonials[index];
+        document.getElementById("testimonial-name").value = test.name;
+        document.getElementById("testimonial-role").value = test.role;
+        document.getElementById("testimonial-stars").value = test.stars;
+        document.getElementById("testimonial-text").value = test.text;
+    }
+
+    modal.classList.remove("hidden");
+}
+
+function handleTestimonialFormSubmit(e) {
+    e.preventDefault();
+    const index = parseInt(document.getElementById("testimonial-edit-index").value);
+    const name = document.getElementById("testimonial-name").value.trim();
+    const role = document.getElementById("testimonial-role").value.trim();
+    const stars = parseInt(document.getElementById("testimonial-stars").value);
+    const text = document.getElementById("testimonial-text").value.trim();
+
+    const testimonialObj = { name, role, stars, text };
+
+    if (!portfolioData.testimonials) portfolioData.testimonials = [];
+
+    if (index === -1) {
+        portfolioData.testimonials.push(testimonialObj);
+        showAdminToast("Review Created", "Successfully added new client review.", "success");
+    } else {
+        portfolioData.testimonials[index] = testimonialObj;
+        showAdminToast("Review Saved", "Review configurations updated.", "success");
+    }
+
+    commitStateToLocalStorage();
+    document.getElementById("testimonial-edit-modal").classList.add("hidden");
+    renderPortfolio();
+}
+
+function deleteTestimonialEntry(index) {
+    if (!confirm("Are you sure you want to delete this review?")) return;
+    portfolioData.testimonials.splice(index, 1);
+    commitStateToLocalStorage();
+    renderPortfolio();
+    showAdminToast("Review Removed", "Client review has been deleted.", "success");
+}
+
+// ==========================================================================
 // RESET & EXPORT ACTIONS
 // ==========================================================================
 
@@ -717,6 +776,21 @@ document.addEventListener("DOMContentLoaded", () => {
             deleteSkillEntry(index);
             return;
         }
+
+        // Testimonial Delegations
+        const editTestimonialBtn = e.target.closest(".js-btn-edit-testimonial");
+        if (editTestimonialBtn) {
+            const index = parseInt(editTestimonialBtn.dataset.index);
+            openTestimonialModal(index);
+            return;
+        }
+
+        const deleteTestimonialBtn = e.target.closest(".js-btn-delete-testimonial");
+        if (deleteTestimonialBtn) {
+            const index = parseInt(deleteTestimonialBtn.dataset.index);
+            deleteTestimonialEntry(index);
+            return;
+        }
     });
 
     // Project Dialog Modals Close & Form Actions
@@ -768,5 +842,23 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             reader.readAsDataURL(file);
         });
+    }
+
+    // Testimonial Modal Dialog Close & Actions
+    const btnCloseTestimonialModal = document.getElementById("btn-close-testimonial-modal");
+    if (btnCloseTestimonialModal) {
+        btnCloseTestimonialModal.addEventListener("click", () => {
+            document.getElementById("testimonial-edit-modal").classList.add("hidden");
+        });
+    }
+
+    const btnAddTestimonial = document.getElementById("btn-add-testimonial");
+    if (btnAddTestimonial) {
+        btnAddTestimonial.addEventListener("click", () => openTestimonialModal(-1));
+    }
+
+    const testimonialEditForm = document.getElementById("testimonial-edit-form");
+    if (testimonialEditForm) {
+        testimonialEditForm.addEventListener("submit", handleTestimonialFormSubmit);
     }
 });

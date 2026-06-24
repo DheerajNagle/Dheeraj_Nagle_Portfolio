@@ -272,6 +272,13 @@
         <!-- Testimonials Section -->
         <section id="testimonials" class="testimonials-section">
             <div class="section-container">
+                <div class="section-header justify-between">
+                    <div class="flex-align-center">
+                        <span class="sparkle-icon"><i class="fa-solid fa-star"></i></span>
+                        <h2 class="section-title">Client Reviews</h2>
+                    </div>
+                    <button id="btn-add-testimonial" class="btn btn-sm btn-outline-gold hidden admin-only-inline"><i class="fa-solid fa-plus"></i> Add Review</button>
+                </div>
                 <div class="testimonials-slider-wrapper">
                     <div class="testimonials-track" id="js-testimonials-track">
                         <!-- Populated by JS -->
@@ -451,6 +458,36 @@
         </div>
     </div>
 
+    <!-- Admin Testimonial Edit Modal -->
+    <div id="testimonial-edit-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <button class="modal-close" id="btn-close-testimonial-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="testimonial-modal-title">Edit Review</h3>
+            <form id="testimonial-edit-form" class="entry-edit-form">
+                <input type="hidden" id="testimonial-edit-index">
+                
+                <div class="form-group">
+                    <label for="testimonial-name">Client Name</label>
+                    <input type="text" id="testimonial-name" placeholder="e.g. John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="testimonial-role">Client Role / Company</label>
+                    <input type="text" id="testimonial-role" placeholder="e.g. CEO at Company" required>
+                </div>
+                <div class="form-group">
+                    <label for="testimonial-stars">Rating (1-5 Stars)</label>
+                    <input type="number" id="testimonial-stars" min="1" max="5" value="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="testimonial-text">Review Message</label>
+                    <textarea id="testimonial-text" rows="4" placeholder="Client feedback text..." required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-gold btn-block">Save Review</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Contact Form Success Popup -->
     <div id="form-success-popup" class="toast-popup hidden">
         <div class="toast-content">
@@ -476,7 +513,7 @@
     </div>
 
     <!-- Core Scripts -->
-    <script src="app.js?v=9"></script>
+    <script src="app.js?v=10"></script>
     <script src="admin.js"></script>
 </body>
 </html>
