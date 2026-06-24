@@ -33,22 +33,22 @@ const DEFAULT_PORTFOLIO_DATA = {
     ],
     experience: [
         {
-            title: "UI/UX Designer",
-            sub: "At Wegems",
-            date: "2023 - Present",
-            desc: "Designing intuitive interfaces, improving user flows, conducting usability tests, and collaborating with teams to create engaging digital experiences."
+            title: "Lead Software Engineer & System Architect",
+            sub: "At NaviPark Project (GitHub)",
+            date: "2026 - Present",
+            desc: "Architected and developed NaviPark, a smart public parking coordination and interaction dashboard. Designed user interfaces for real-time space tracking, navigation, and automated billing interfaces."
         },
         {
-            title: "Product Designer",
-            sub: "At LuminUI",
-            date: "2022 - 2023",
-            desc: "Crafting interactive designs, prototyping innovative features, analyzing user behavior, and ensuring products meet user needs and business goals."
+            title: "TypeScript & Full-Stack Developer",
+            sub: "At WealthTrack & LMS (GitHub)",
+            date: "2025 - 2026",
+            desc: "Engineered LMS, a scalable Learning Management System, and WealthTrack, a personal finance tracker. Utilized TypeScript and modern development principles to deliver robust, secure, and clean web applications."
         },
         {
-            title: "Senior UX Designer",
-            sub: "At Ugergency",
-            date: "2020 - 2022",
-            desc: "Leading UX projects, conducting user research and testing, and optimizing products for usability, engagement, and overall satisfaction."
+            title: "Mobile Application Specialist",
+            sub: "At Learnify App (GitHub)",
+            date: "2024 - 2025",
+            desc: "Developed the Learnify mobile app using React Native and Expo. Integrated user authentication, custom WebView navigation components, and implemented offline caching strategies for high-performance micro-learning delivery."
         }
     ],
     education: [
@@ -67,16 +67,34 @@ const DEFAULT_PORTFOLIO_DATA = {
     ],
     projects: [
         {
-            name: "M-Mockups: MacBook Air",
-            category: "UI/UX Design",
-            image: "assets/project_macbook.png",
-            url: "#"
+            name: "Learnify App",
+            category: "React Native Mobile App",
+            image: "assets/project_learnify.png",
+            url: "https://github.com/DheerajNagle/Learnify-app"
         },
         {
-            name: "LuminUI Dashboard",
-            category: "Web Design",
+            name: "NaviPark Dashboard",
+            category: "System Design & Web App",
+            image: "assets/project_navipark.png",
+            url: "https://github.com/DheerajNagle/NaviPark"
+        },
+        {
+            name: "WealthTrack Portfolio",
+            category: "TypeScript FinTech App",
+            image: "assets/project_wealthtrack.png",
+            url: "https://github.com/DheerajNagle/WealthTrack"
+        },
+        {
+            name: "Learning Management System (LMS)",
+            category: "TypeScript Web Platform",
             image: "assets/project_luminui.png",
-            url: "#"
+            url: "https://github.com/DheerajNagle/LMS"
+        },
+        {
+            name: "PII Detection Software",
+            category: "AI & Python Tooling",
+            image: "assets/project_macbook.png",
+            url: "https://github.com/DheerajNagle/PII-Detection-software"
         }
     ],
     testimonials: [
@@ -188,6 +206,28 @@ function initPortfolioState() {
                     portfolioData.profile.socials.linkedin = DEFAULT_PORTFOLIO_DATA.profile.socials.linkedin;
                     updated = true;
                 }
+            }
+            const hasPlaceholderProjects = portfolioData.projects && portfolioData.projects.some(p => p.name.includes("M-Mockups") || p.name.includes("LuminUI"));
+            if (!portfolioData.projects || portfolioData.projects.length === 0 || hasPlaceholderProjects) {
+                portfolioData.projects = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.projects));
+                updated = true;
+            }
+            if (portfolioData.projects) {
+                const originalLength = portfolioData.projects.length;
+                portfolioData.projects = portfolioData.projects.filter(p => 
+                    !p.url.includes("frontend_technical_assessment") && 
+                    !p.url.includes("charli-work") &&
+                    !p.name.includes("frontend_technical_assessment") &&
+                    !p.name.includes("charli-work")
+                );
+                if (portfolioData.projects.length !== originalLength) {
+                    updated = true;
+                }
+            }
+            const hasPlaceholderExperience = portfolioData.experience && portfolioData.experience.some(e => e.sub.includes("At Wegems") || e.sub.includes("At LuminUI"));
+            if (!portfolioData.experience || portfolioData.experience.length === 0 || hasPlaceholderExperience) {
+                portfolioData.experience = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA.experience));
+                updated = true;
             }
             if (updated) {
                 localStorage.setItem("portfolio_state", JSON.stringify(portfolioData));
