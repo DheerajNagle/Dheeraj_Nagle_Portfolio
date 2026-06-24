@@ -9,8 +9,8 @@ const DEFAULT_PORTFOLIO_DATA = {
         lastname: "NAGLE",
         role: "Creative UI/UX Designer & Web Developer",
         heroWelcome: "I'm Dheeraj Nagle, a developer who enjoys turning ideas into real products. Over the past few years, I've worked on web applications, mobile apps, and learning platforms using React, React Native, Node.js, and Python. I love building intuitive user experiences and writing clean, maintainable code. I'm currently open to freelance projects and full-time opportunities where I can contribute, learn, and grow as a developer.",
-        aboutTitle: "Passionate & Creative Full-Stack Designer",
-        aboutBio: "I'm Dheeraj Nagle, a designer and developer passionate about crafting intuitive, user-centered experiences. I love turning complex ideas into seamless interfaces.",
+        aboutTitle: "Frontend & Full-Stack Developer",
+        aboutBio: "I'm Dheeraj Nagle, a Frontend & Full-Stack Developer with experience building web and mobile applications using React, React Native, Node.js, and Python. I enjoy transforming ideas into scalable, user-friendly digital products that solve real-world problems. From responsive websites to custom applications, I focus on writing clean code, delivering great user experiences, and continuously learning modern technologies.",
         profileImage: "assets/dheeraj_photo.jpg",
         cardImage: "assets/dheeraj_photo.jpg",
         contactPhone: "+91 98765 43210",
@@ -169,6 +169,14 @@ function initPortfolioState() {
             }
             if (portfolioData.profile && (!portfolioData.profile.heroWelcome || portfolioData.profile.heroWelcome.includes("Welcome to my portfolio!"))) {
                 portfolioData.profile.heroWelcome = DEFAULT_PORTFOLIO_DATA.profile.heroWelcome;
+                updated = true;
+            }
+            if (portfolioData.profile && (portfolioData.profile.aboutTitle === "Passionate & Creative Full-Stack Designer" || !portfolioData.profile.aboutTitle)) {
+                portfolioData.profile.aboutTitle = DEFAULT_PORTFOLIO_DATA.profile.aboutTitle;
+                updated = true;
+            }
+            if (portfolioData.profile && (portfolioData.profile.aboutBio === "I'm Dheeraj Nagle, a designer and developer passionate about crafting intuitive, user-centered experiences. I love turning complex ideas into seamless interfaces." || !portfolioData.profile.aboutBio)) {
+                portfolioData.profile.aboutBio = DEFAULT_PORTFOLIO_DATA.profile.aboutBio;
                 updated = true;
             }
             if (portfolioData.profile && portfolioData.profile.socials) {
